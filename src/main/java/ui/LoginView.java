@@ -130,7 +130,7 @@ public class LoginView {
 		//boton login para acceder a la pokedex
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				checkLogin();
+				checkLogin(tfUser.getText(), new String (pfPassword.getPassword()));
 			}
 		});
 		
@@ -149,7 +149,7 @@ public class LoginView {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					checkLogin();
+					checkLogin(tfUser.getText(), new String (pfPassword.getPassword()));
 				}
 			}
 		});
@@ -166,9 +166,9 @@ public class LoginView {
 	/**
 	 * comprueba si el usuario y la contraseña son correctos
 	 */
-	private void checkLogin() {
-		String username = tfUser.getText();
-		String password = new String (pfPassword.getPassword());
+	public boolean checkLogin(String user, String pass) {
+		String username = user;
+		String password = pass;
 		boolean find = false;
 		
 		//busca el usuario
@@ -178,14 +178,13 @@ public class LoginView {
 				frmLogin.dispose();
 				new ClinicaView(u, frmLogin);
 				find = true;
-				break;
+				return true;
 			}
 			
 			//si el usuario existe pero la contraseña no coincide muestra texto de error
 			if(username.equals(u.getUsername()) && !password.equals(u.getPasswd())) {
 				lblErrorMessage.setText("ERROR: Contraseña incorrecta.");
 				find = true;
-				break;
 			}
 			
 		}
@@ -194,6 +193,7 @@ public class LoginView {
 		if(!find) {
 			lblErrorMessage.setText("ERROR: El usuario no existe.");
 		}
-				
+		
+		return false;
 	}
 }

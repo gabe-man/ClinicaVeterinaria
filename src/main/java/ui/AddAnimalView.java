@@ -216,7 +216,7 @@ public class AddAnimalView {
 				for (Animales p : user.getMascotas()) {
 					// Si el numero de chip ya lo usa otro Animal
 					if (tfNumChip.getText().equals(p.getNumChip())) {
-						lblErrorMessage.setText("ERROR: El numero del Pokemon ya pertenece a otro Pokemon.");
+						lblErrorMessage.setText("ERROR: El chip del Animal ya pertenece a otro Animal.");
 						find = true;
 						break;
 					}
@@ -237,19 +237,10 @@ public class AddAnimalView {
 						try {
 							if(tfSetObservaciones.getText().equals("")) {
 								// creamos el nuevo animal
-								user.addMascota(new Animales(tfNombre.getText(), 
-										Integer.valueOf(tfNumChip.getText()),  
-										tfSetEspecie.getText(), 
-										tfSetRaza.getText(), 
-										Double.parseDouble(tfSetPeso.getText())));
+								añadirAnimalSinComentario(user);
 							}else {
 								// creamos el nuevo animal
-								user.addMascota(new Animales(tfNombre.getText(), 
-										Integer.valueOf(tfNumChip.getText()),  
-										tfSetEspecie.getText(), 
-										tfSetRaza.getText(), 
-										Double.parseDouble(tfSetPeso.getText()),
-										tfSetObservaciones.getText()));
+								añadirAnimalConComentario(user);
 							}
 							
 
@@ -268,5 +259,24 @@ public class AddAnimalView {
 				}
 			}
 		});
+	}
+	
+	private void añadirAnimalConComentario(Usuarios user)
+	{
+		user.addMascota(new Animales(tfNombre.getText(), 
+				Integer.valueOf(tfNumChip.getText()),  
+				tfSetEspecie.getText(), 
+				tfSetRaza.getText(), 
+				Double.parseDouble(tfSetPeso.getText()),
+				tfSetObservaciones.getText()));
+	}
+	
+	private void añadirAnimalSinComentario(Usuarios user)
+	{
+		user.addMascota(new Animales(tfNombre.getText(), 
+				Integer.valueOf(tfNumChip.getText()),  
+				tfSetEspecie.getText(), 
+				tfSetRaza.getText(), 
+				Double.parseDouble(tfSetPeso.getText())));
 	}
 }

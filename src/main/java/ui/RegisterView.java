@@ -170,7 +170,7 @@ public class RegisterView {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					checkRegister();
+					checkRegister(new String(passwordField.getPassword()), new String(passwordFieldConfirm.getPassword()), textUsername.getText());
 				}
 			}
 		});
@@ -186,7 +186,7 @@ public class RegisterView {
 		//registrar nuevo usuario
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				checkRegister();
+				checkRegister(new String(passwordField.getPassword()), new String(passwordFieldConfirm.getPassword()), textUsername.getText());
 			}
 		});
 
@@ -195,10 +195,10 @@ public class RegisterView {
 	/**
 	 * registrar nuevo usuario
 	 */
-	private void checkRegister() {
-		String passwd  = new String(passwordField.getPassword());
-		String confirmPasswd = new String(passwordFieldConfirm.getPassword());	
-		String username = textUsername.getText();
+	public boolean checkRegister(String pass, String confirmPass, String user) {
+		String passwd  = pass;
+		String confirmPasswd = confirmPass;	
+		String username = user;
 		boolean find = false;
 		
 		//comprueba si el usuario ya existe, muestra error en ese caso
@@ -206,21 +206,24 @@ public class RegisterView {
 			if(u.getUsername().equals(username)) {
 				lblErrorMessage.setText("ERROR: El usuario ya existe.");
 				find = true;
-				break;
+				return false;
 			}
 		}
 		
 		//comprueba si el campo usuario esta vacio y muestra error en ese caso
 		if(username.equals("")) {
 			lblErrorMessage.setText("ERROR: El usuario no puede estar vacio.");
+			return false;
 		
 		//comprueba que las contraseñas no esten vacias, muestra error en caso de estarlas
 		}else if(passwd.equals("") || confirmPasswd.equals("")){
 			lblErrorMessage.setText("ERROR: Las contraseñas no puede estar vacia.");
+			return false;
 			
 		//comprueba si las contraseñas coinciden, muestra error en caso de no coincidir
 		}else if(!find && !passwd.equals(confirmPasswd)){
 			lblErrorMessage.setText("ERROR: Las contraseñas no coinciden.");
+			return false;
 			
 		//en caso de no existir el usuario y coincidir las contraseñas registra al usuario, muestra mensaje de confirmacion del registro
 		}else if(!find && passwd.equals(confirmPasswd)){
@@ -229,5 +232,6 @@ public class RegisterView {
 			frmRegister.dispose();
 			parent.setVisible(true);
 		}
+		return true;
 	}
 }

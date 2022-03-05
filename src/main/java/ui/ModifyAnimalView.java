@@ -37,11 +37,11 @@ public class ModifyAnimalView {
 	private JLabel lblRaza;
 	private JLabel lblObservaciones;
 	private JLabel lblPeso;
-	private JTextField tfSetEspecie;
-	private JTextField tfSetRaza;
-	private JTextField tfSetPeso;
+	public JTextField tfSetEspecie;
+	public JTextField tfSetRaza;
+	public JTextField tfSetPeso;
 	private JTextField tfSetObservaciones;
-	private JTextField tfNombre;
+	public JTextField tfNombre;
 	private JLabel lblErrorMessage;
 	private JLabel lblNumChip;
 	private JLabel lblNombre;
@@ -224,17 +224,11 @@ public class ModifyAnimalView {
 					try {
 						if (tfSetObservaciones.getText().equals("")) {
 							// creamos el nuevo animal
-							user.getMascotas().get(ClinicaView.count).setNombre(tfNombre.getText());
-							user.getMascotas().get(ClinicaView.count).setEspecie(tfSetEspecie.getText());
-							user.getMascotas().get(ClinicaView.count).setRaza(tfSetRaza.getText());
-							user.getMascotas().get(ClinicaView.count).setPeso(Double.parseDouble(tfSetPeso.getText()));
+							modificar(user, ClinicaView.count);
 
 						} else {
 							// creamos el nuevo animal
-							user.getMascotas().get(ClinicaView.count).setNombre(tfNombre.getText());
-							user.getMascotas().get(ClinicaView.count).setEspecie(tfSetEspecie.getText());
-							user.getMascotas().get(ClinicaView.count).setRaza(tfSetRaza.getText());
-							user.getMascotas().get(ClinicaView.count).setPeso(Double.parseDouble(tfSetPeso.getText()));
+							modificar(user, ClinicaView.count);
 							user.getMascotas().get(ClinicaView.count).setObservaciones(tfSetObservaciones.getText());
 
 						}
@@ -271,5 +265,13 @@ public class ModifyAnimalView {
 		tfSetRaza.setText(user.getMascotas().get(ClinicaView.count).getRaza());
 		tfSetObservaciones.setText(user.getMascotas().get(ClinicaView.count).getObservaciones());
 
+	}
+	
+	public void modificar(Usuarios user, int cont)
+	{
+		user.getMascotas().get(cont).setNombre(tfNombre.getText());
+		user.getMascotas().get(cont).setEspecie(tfSetEspecie.getText());
+		user.getMascotas().get(cont).setRaza(tfSetRaza.getText());
+		user.getMascotas().get(cont).setPeso(Double.parseDouble(tfSetPeso.getText()));
 	}
 }

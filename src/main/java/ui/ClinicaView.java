@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import models.Animales;
 import models.Usuarios;
 
 import java.awt.Font;
@@ -40,7 +41,7 @@ public class ClinicaView {
 	public static int count = 0;
 	private JLabel lblSetObservaciones;
 	private JLabel lblChip;
-	private JLabel lblSetChip;
+	public JLabel lblSetChip;
 
 	/**
 	 * Create the application.
@@ -64,7 +65,7 @@ public class ClinicaView {
 		frmClinica.setIconImage(Toolkit.getDefaultToolkit().getImage(ClinicaView.class.getResource("/utils/dog.png")));
 		configureUIComponents();
 		configureListener();
-		showAnimal(count);
+		showAnimal(user,count);
 
 	}
 	
@@ -257,7 +258,7 @@ public class ClinicaView {
 				
 				if(opcion == 0) {
 					user.quitarMascota(count);
-					showAnimal(count);
+					showAnimal(user,count);
 				}
 			}
 		});
@@ -275,7 +276,7 @@ public class ClinicaView {
 					count--;
 				}
 				
-				showAnimal(count);
+				showAnimal(user,count);
 
 			}
 		});
@@ -293,7 +294,7 @@ public class ClinicaView {
 					count++;
 				}
 				
-				showAnimal(count);
+				showAnimal(user,count);
 				
 			}
 		});
@@ -304,7 +305,7 @@ public class ClinicaView {
 	 * muestra los datos del animal
 	 * @param count posicion del animal a mostrar
 	 */
-	private void showAnimal(int count) {
+	public void showAnimal(Usuarios user, int count) {
 		
 		//si no hay animales en la lista muestra la pantalla vacia
 		if(user.getMascotas().size() == 0) {
@@ -351,7 +352,7 @@ public class ClinicaView {
 	/**
 	 * en caso de no haber animales guardados en la clinica mostrará la pantalla vacia indicando que no hay ningun animal y solo permitirá crear uno nuevo o salir.
 	 */
-	private void mostrarVacio() {
+	public void mostrarVacio() {
 		lblSetNombre.setText("");
 		lblSetPeso.setText("N/A");
 		lblSetChip.setText("N/A");
